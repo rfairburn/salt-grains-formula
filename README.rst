@@ -40,7 +40,7 @@ Example Pillar
 
 .. note::
 
-    Includes the mine_functions required in the pillar example. There may be additional configuration required to get your mine working.  Please see documentation about `The Salt Mine <http://docs.saltstack.com/en/latest/topics/mine/>`_.
+    If you are just using this formula for role management, you can exclude anything about sudoers_included below.  Check `Devop Ninja <http://devop.ninja>`_ soon for an article on the sudoers portion.
 
 
 .. code:: yaml
