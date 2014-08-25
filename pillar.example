@@ -1,0 +1,76 @@
+grains:
+  categories:
+# Used if a system is not indicated below
+    default:
+      categories:
+        - nrpe
+        - sudoers
+# Service category designations
+    dnsmasq:
+      roles:
+        - dnsmasq
+        - hosts
+    jenkins_deploy_target:
+      sudoers.included:
+        - jenkins
+      categories:
+        - sudoers
+    nrpe:
+      roles:
+        - nagios.nrpe
+        - files.nagios_plugins
+    sudoers:
+      roles:
+        - sudoers
+        - sudoers.included
+        - files.sudoers_cleanup
+      sudoers.included:
+        - cloud-init
+# Environment category designations
+# Used to add designations and properly manage sudoers
+# Potentially used to manage unique 'roles' per environment
+# (dev,stage,test,uat,prod,support, etc)
+#
+# Nonprod designations
+    non_prod_server:
+      sudoers.included:
+        - corp-non-prod
+      categories:
+        - sudoers
+    demo_server:
+      categories:
+        - non_prod_server
+    stage_server:
+      categories:
+        - non_prod_server
+    test_server:
+      categories:
+        - non_prod_server
+    uat_server:
+      categories:
+        - non_prod_server
+# Prod designations
+    prod_server:
+      sudoers.included:
+        - corp-prod
+      categories:
+        - sudoers
+    support_server:
+      categories:
+        - prod_server
+  systems:
+# Minion system. The line below should match grains['id']
+    salt-minion:
+      roles:
+        - nagios.server
+      categories:
+        - default
+        - prod_server
+        - jenkins_deploy_target
+# Another minion system example
+    salt-master:
+      roles:
+        - files.salt_master_files
+      categories:
+        - default
+        - support_server

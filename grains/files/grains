@@ -1,0 +1,13 @@
+import yaml
+from salt.utils.odict import OrderedDict
+from salt._compat import string_types
+from jinja2 import Markup
+
+class OrderedDictDumper(yaml.Dumper):  # pylint: disable=W0232
+    pass
+
+yaml.add_representer(OrderedDict,
+                     yaml.representer.SafeRepresenter.represent_dict,
+                     Dumper=OrderedDictDumper)
+def run():
+  return Markup(yaml.dump(context['custom_grains'], default_flow_style=False, Dumper=OrderedDictDumper).strip())
