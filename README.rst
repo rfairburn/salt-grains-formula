@@ -1,4 +1,4 @@
-nagios
+grains
 =======
 
 Salt formula to manage minion custom grains from the master.
